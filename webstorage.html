@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="lsResult"></div>
+<div id="ssResult"></div>
+<script>
+var localDiv = document.getElementById("lsResult")
+  , sessionDiv = document.getElementById("ssResult")
+  , not_defined = function (value) { var ud; return value === ud; }
+  ;
+
+if (localStorage === null) {
+   localDiv.innerHTML = "Error: localStorage === null";
+}
+else if (not_defined(localStorage)) {
+   localDiv.innerHTML = "localStorage is not supported";
+}
+else {
+   if (not_defined(localStorage.count)) {
+      localDiv.innerHTML = "localStorage.count not defined, setting to 1";
+      localStorage.count = 1;
+   }
+   else {
+      localStorage.count = parseInt(localStorage.count) + 1;
+      localDiv.innerHTML = "localStorage.count = " + localStorage.count;
+      if (parseInt(localStorage.count) > 3) {
+         localDiv.innerHTML += " Deleting localStorage.count";
+         delete localStorage.count;
+      }
+   }
+}
+
+if (sessionStorage === null) {
+   sessionDiv.innerHTML = "Error: sessionStorage === null";
+}
+else if (not_defined(sessionStorage)) {
+   sessionDiv.innerHTML = "sessionStorage is not supported";
+}
+else {
+   if (not_defined(sessionStorage.count)) {
+      sessionDiv.innerHTML = "sessionStorage.count not defined, setting to 1";
+      sessionStorage.count = 1;
+   }
+   else {
+      sessionStorage.count = parseInt(sessionStorage.count) + 1;
+      sessionDiv.innerHTML = "sessionStorage.count = " + sessionStorage.count;
+   }
+}
+</script>
+</body>
+</html>
