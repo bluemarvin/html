@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <script>
+    var db = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);
+    db.transaction(function (tx) {
+      tx.executeSql('SELECT * FROM foo', [], function (tx, results) {
+        var len = results.rows.length, i;
+        document.title = 'NOT SET';
+        for (i = 0; i < len; i++) {
+          if (results.rows.item(i).text == 'SET') {
+            document.title = 'SET';
+          }
+        }
+      })
+    });
+  </script>
+  <body>WebStorage Test</body>
+</html>
