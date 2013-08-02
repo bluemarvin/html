@@ -1,0 +1,28 @@
+<html>
+<head>
+</head>
+  <title>CSS animations: Example 1</title>
+  <style type="text/css">
+    h1 {
+      -webkit-animation-duration: 3s;
+      -webkit-animation-name: slidein;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-direction: alternate;
+      -webkit-animation-timing-function: linear;
+    }
+
+    @-webkit-keyframes slidein {
+      from {
+        margin-left:100%;
+      }
+
+      to {
+        margin-left:0%;
+      }
+    }
+  </style>
+</head>
+<body>
+<h1>Heading</h1>
+</body>
+</html>
