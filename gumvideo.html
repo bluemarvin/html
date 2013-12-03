@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>gUM Page</title>
+
+</head>
+<body>
+<div id="main">
+  <div id="content"></div>
+  <div id="message"></div>
+  <div id="controls">
+    <input value="Start" type="button" onclick="startVideo();">
+    <input value="Stop" type="button" onclick="stopVideo();">
+  </div>
+</div>
+</body>
+<script type="application/javascript">
+var content = document.getElementById("content")
+  , message = document.getElementById("message")
+  , video = document.createElement("video")
+  , video_playing = false
+  ;
+
+video.setAttribute("width", 640);
+video.setAttribute("height", 480);
+
+function startVideo() {
+try {
+  window.navigator.mozGetUserMedia({video:true}, function(stream) {
+    content.appendChild(video);
+    video.mozSrcObject = stream;
+    video.play();
+    video_playing = true;
+  }, function(err) {
+    message.innerHTML = "<p>" + err + "</p>";
+  });
+} catch(e) {
+  message.innerHTML = "<p>" + e + "</p>";
+}
+}
+
+function stopVideo() {
+  if (video_playing) {
+    video.mozSrcObject.stop();
+    video.mozSrcObject = null;
+    video_playing = false;
+  }
+}
+</script>
+</html>
