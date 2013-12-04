@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>gUM Page</title>
+<title>gUM Video</title>
 
 </head>
 <body>
@@ -9,41 +9,42 @@
   <div id="content"></div>
   <div id="message"></div>
   <div id="controls">
-    <input value="Start" type="button" onclick="startVideo();">
-    <input value="Stop" type="button" onclick="stopVideo();">
+    <input id="button" value="Start" type="button" onclick="clicked();">
   </div>
 </div>
 </body>
 <script type="application/javascript">
 var content = document.getElementById("content")
   , message = document.getElementById("message")
+  , button = document.getElementById("button")
   , video = document.createElement("video")
   , video_playing = false
   ;
 
+message.innerHTML = "<p>READY</p>";
 video.setAttribute("width", 640);
 video.setAttribute("height", 480);
 
-function startVideo() {
-try {
-  window.navigator.mozGetUserMedia({video:true}, function(stream) {
-    content.appendChild(video);
-    video.mozSrcObject = stream;
-    video.play();
-    video_playing = true;
-  }, function(err) {
-    message.innerHTML = "<p>" + err + "</p>";
-  });
-} catch(e) {
-  message.innerHTML = "<p>" + e + "</p>";
-}
-}
-
-function stopVideo() {
+function clicked() {
   if (video_playing) {
     video.mozSrcObject.stop();
     video.mozSrcObject = null;
     video_playing = false;
+    button.value = "Start";
+  } else {
+    try {
+      window.navigator.mozGetUserMedia({video:true}, function(stream) {
+        content.appendChild(video);
+        video.mozSrcObject = stream;
+        video.play();
+        video_playing = true;
+        button.value = "Stop";
+      }, function(err) {
+        message.innerHTML = "<p>" + err + "</p>";
+      });
+    } catch(e) {
+      message.innerHTML = "<p>" + e + "</p>";
+    }
   }
 }
 </script>

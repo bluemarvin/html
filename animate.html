@@ -9,9 +9,23 @@
       -webkit-animation-iteration-count: infinite;
       -webkit-animation-direction: alternate;
       -webkit-animation-timing-function: linear;
+      -moz-animation-duration: 3s;
+      -moz-animation-name: slidein;
+      -moz-animation-iteration-count: infinite;
+      -moz-animation-direction: alternate;
+      -moz-animation-timing-function: linear;
     }
 
     @-webkit-keyframes slidein {
+      from {
+        margin-left:100%;
+      }
+
+      to {
+        margin-left:0%;
+      }
+    }
+    @-moz-keyframes slidein {
       from {
         margin-left:100%;
       }
