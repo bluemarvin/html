@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+<head>
+<meta charset="utf-8">
   <script>
     var db = openDatabase('mydb', '1.0', 'my first database', 2 * 1024 * 1024);
     db.transaction(function (tx) {
@@ -7,5 +9,6 @@
       tx.executeSql('INSERT INTO foo (id, text) VALUES (1, \'SET\')');
     });
   </script>
+</head>
   <body>WebStorage Set SQL Test</body>
 </html>

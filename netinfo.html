@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+<div id="info"></div>
+<script>
+var info = document.getElementById("info")
+  , not_defined = function (value) { var ud; return value === ud; }
+  , connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection
+  , changeEventListener
+  ;
+
+changeEventListener = function () {
+  info.innerHTML = "Bandwidth: " + connection.bandwidth + " Metered: " + connection.metered + " Type: " + connection.type;
+}
+
+if (not_defined(connection)) {
+  info.innerHTML = "NOT DEFINED";
+}
+else {
+  connection.addEventListener("change", changeEventListener);
+  changeEventListener();
+}
+
+</script>
+</body>
+</html>

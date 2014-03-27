@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+<div id="info"></div>
+<script>
+var info = document.getElementById("info")
+  , not_defined = function (value) { var ud; return value === ud; }
+  , battery = navigator.battery || navigator.mozBattery || navigator.webkitBattery
+  , chargingChange // chargingchange
+  , chargingTimeChange // chargingtimechange
+  , dischargingTimeChange // dischargingtimechange
+  , levelChange // levelchange
+  , updateInfo
+  ;
+
+// chargingchange
+chargingChange = function () {
+  console.log("reb: chargingchange");
+  updateInfo();
+}
+// chargingtimechange
+chargingTimeChange = function () {
+  console.log("reb: chargingtimechange");
+  updateInfo();
+}
+// dischargingtimechange
+dischargingTimeChange = function () {
+  console.log("reb: dischargingtimechange");
+  updateInfo();
+}
+// levelchange
+levelChange = function () {
+  console.log("reb: levelchange");
+  updateInfo();
+}
+
+updateInfo = function () {
+  info.innerHTML =
+    "<p>Charging: " + (battery.charging ? "CHARGING" : "NOT CHARGING")
+    + "<p>ChargingTime: " + battery.chargingTime
+    + "<p>DischargingTime: " + battery.dischargingTime
+    + "<p>Level: " + battery.level
+    ;
+}
+
+if (not_defined(battery)) {
+  info.innerHTML = "NOT DEFINED";
+}
+else {
+  battery.addEventListener("chargingchange", chargingChange);
+  battery.addEventListener("chargingtimechange", chargingTimeChange);
+  battery.addEventListener("dischargingtimechange", dischargingTimeChange);
+  battery.addEventListener("levelchange", levelChange);
+  updateInfo();
+}
+
+</script>
+</body>
+</html>
