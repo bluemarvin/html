@@ -1,0 +1,159 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<script src="scripts/jquery-1.7.2.min.js"></script>
+<script>
+(function () {
+
+function placement() {
+   $(".box").each(function () {
+      var offset = $(this).offset();
+      this.innerHTML = offset.left.toString() + ", " + offset.top.toString();
+   });
+}
+
+$(document).ready(function () {
+
+   var position = $("#position")
+     , target = $("#target")
+     , offsetX = 32
+     , offsetY = 32
+     ;
+
+   placement();
+
+   if (!position || !target) { return; }
+
+   function click (event) {
+
+      offsetY = target.height() / 2;
+      offsetX = target.width() / 2;
+
+      position.html(event.pageX.toString() + ", " + event.pageY.toString());
+      target.css({"top": event.pageY - offsetY, "left": event.pageX - offsetX});
+      return false;
+   }
+
+   $(document).click(click);
+   $(document).dblclick(click);
+});
+
+$(window).resize(function () {
+   placement();
+});
+})();
+</script>
+<style type="text/css">
+
+body {
+   background-color: white;
+}
+
+#position {
+   background-color: white;
+   position: fixed;
+   top: 5px;
+}
+
+#target {
+   position: absolute;
+   top: 20px;
+   left: 30px;
+}
+
+.container {
+   width: 1200px;
+   height: 2200px;
+   margin: 0 auto;
+}
+
+.row {
+   width: 600px;
+   clear: left;
+}
+
+.box {
+   float: left;
+   width: 180px;
+   height: 180px;
+   background-color: black;
+   margin-right: 10px;
+   margin-left: 10px;
+   margin-top: 10px;
+   margin-bottom: 10px;
+}
+
+.red {
+    background-color: red;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.green {
+    background-color: green;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.indigo {
+    background-color: indigo;
+}
+
+.purple {
+    background-color: purple;
+}
+
+.violet {
+    background-color: violet;
+}
+
+</style>
+</head>
+<body>
+<div id="position">None</div>
+<div class="container">
+
+<div class="row">
+   <div class="box red"></div>
+   <div class="box orange"></div>
+   <div class="box yellow"></div>
+</div>
+
+<div class="row">
+   <div class="box orange"></div>
+   <div class="box yellow"></div>
+   <div class="box green"></div>
+</div>
+
+<div class="row">
+   <div class="box yellow"></div>
+   <div class="box green"></div>
+   <div class="box blue"></div>
+</div>
+
+<div class="row">
+   <div class="box green"></div>
+   <div class="box blue"></div>
+   <div class="box indigo"></div>
+</div>
+
+<div class="row">
+   <div class="box blue"></div>
+   <div class="box indigo"></div>
+   <div class="box red"></div>
+</div>
+
+<div id="target"><img src="images/x.png"></div>
+
+</div>
+</body>
+</html>
