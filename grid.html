@@ -14,7 +14,8 @@ function placement() {
 
 $(document).ready(function () {
 
-   var position = $("#position")
+   var click = $("#click")
+     , touch = $("#touch")
      , target = $("#target")
      , offsetX = 32
      , offsetY = 32
@@ -22,20 +23,28 @@ $(document).ready(function () {
 
    placement();
 
-   if (!position || !target) { return; }
+   if (!click || !target || !touch) { return; }
 
-   function click (event) {
+   function onClick (event) {
 
       offsetY = target.height() / 2;
       offsetX = target.width() / 2;
 
-      position.html(event.pageX.toString() + ", " + event.pageY.toString());
+      click.html(event.pageX.toString() + ", " + event.pageY.toString());
       target.css({"top": event.pageY - offsetY, "left": event.pageX - offsetX});
       return false;
    }
 
-   $(document).click(click);
-   $(document).dblclick(click);
+   $(document).click(onClick);
+   $(document).dblclick(onClick);
+   document.addEventListener("touchend", function(evt) {
+//      evt.preventDefault();
+      var touches = evt.changedTouches;
+
+      if (touches.length > 0) {
+         touch.html(touches[0].pageX.toString() + ", " + touches[0].pageY.toString());
+      }
+   }, false);
 });
 
 $(window).resize(function () {
@@ -53,6 +62,14 @@ body {
    background-color: white;
    position: fixed;
    top: 5px;
+}
+
+#click {
+   background-color: white;
+}
+
+#touch {
+   background-color: white;
 }
 
 #target {
@@ -118,7 +135,10 @@ body {
 </style>
 </head>
 <body>
-<div id="position">None</div>
+<div id="position">
+  <div id="click">No Click</div>
+  <div id="touch">No Touch</div>
+</div>
 <div class="container">
 
 <div class="row">
