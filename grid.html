@@ -32,7 +32,7 @@ $(document).ready(function () {
 
       click.html("C: page(" + event.pageX.toString() + ", " + event.pageY.toString() + ") client("
          + event.clientX.toString() + ", " + event.clientY.toString() + ")");
-//      target.css({"top": event.pageY - offsetY, "left": event.pageX - offsetX});
+      target.css({"top": event.pageY - offsetY, "left": event.pageX - offsetX});
       return false;
    }
 
@@ -45,7 +45,7 @@ $(document).ready(function () {
       if (touches.length > 0) {
          touch.html("T: page(" + touches[0].pageX.toString() + ", " + touches[0].pageY.toString() + ") client("
             + touches[0].clientX.toString() + ", " + touches[0].clientY.toString() + ")");
-         target.css({"top": touches[0].pageY - offsetY, "left": touches[0].pageX - offsetX});
+//         target.css({"top": touches[0].pageY - offsetY, "left": touches[0].pageX - offsetX});
       }
    }, false);
 });
