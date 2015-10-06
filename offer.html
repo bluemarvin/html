@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script>
+var GetUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia).bind(navigator);
+var constraints = { video: true }
+  , log = (console.log).bind(console)
+  , RTCPeerConnection = window.RTCPeerConnection || window.webkitRTCPeerConnection || window.mozRTCPeerConnection
+  , pc = null // = new RTCPeerConnection({"iceServers":[{"url":"stun:stun.services.mozilla.com"}]}, {})
+  , info = document.getElementById("info")
+  ;
+log('starting script');
+function gum(stream) {
+  log('in gum');
+  pc = new RTCPeerConnection({"iceServers":[{"url":"stun:stun.services.mozilla.com"}]}, {});
+  pc.addStream(stream);
+  pc.createOffer(function (offer) {
+                   info.innerHTML = '<pre>' + offer.sdp + '</pre>';
+                   log(offer)
+                 } ,
+                 function () { log('Failed to create off') })
+}
+
+log('before gum');
+GetUserMedia(constraints, gum, function () { log('Failed to get user media') } );
+log('after gum');
+</script>
+</head>
+<body>
+<div id="info"></div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<html>
+<head>
+<meta charset="utf-8">
+<script src="scripts/jquery-1.7.2.min.js"></script>
+<script>
+(function () {
+
+$(document).ready(function () {
+
+   var click = $("#click")
+     , touch = $("#touch")
+     , offsetX = 32
+     , offsetY = 32
+     ;
+
+   if (!click || !touch) { return; }
+
+   function onClick (event) {
+
+      click.html("C: page(" + event.pageX.toString() + ", " + event.pageY.toString() + ") client("
+         + event.clientX.toString() + ", " + event.clientY.toString() + ")");
+      return false;
+   }
+
+   $(document).click(onClick);
+   $(document).dblclick(onClick);
+   document.addEventListener("touchend", function(evt) {
+      var touches = evt.changedTouches;
+
+      if (touches.length > 0) {
+         touch.html("T: page(" + touches[0].pageX.toString() + ", " + touches[0].pageY.toString() + ") client("
+            + touches[0].clientX.toString() + ", " + touches[0].clientY.toString() + ")");
+      }
+   }, false);
+});
+
+})();
+</script>
+<style type="text/css">
+
+body {
+   background-color: white;
+}
+
+#position {
+   background-color: white;
+   position: fixed;
+   top: 5px;
+}
+
+#click {
+   background-color: white;
+}
+
+#touch {
+   background-color: white;
+}
+
+.box {
+   width: 800px;
+   height: 200px;
+   margin: 0 auto;
+}
+</style>
+
+</head>
+<body>
+<div class="box">Text before the iframe.</div>
+<iframe src="ievent-src.html" width="800" height="500">
+</iframe>
+<p>
+Text after the iframe.
+<div id="position">
+  <div id="click">No Click</div>
+  <div id="touch">No Touch</div>
+</div>
+</body>
+</html>
