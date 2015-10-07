@@ -17,35 +17,44 @@ $(document).ready(function () {
    var click = $("#click")
      , touch = $("#touch")
      , target = $("#target")
+     , tap = $("#tap")
      , offsetX = 32
      , offsetY = 32
+     , tapOffsetX = 40
+     , tapOffsetY = 40
+     , tapPlace = { x: 0, y: 0 }
      ;
 
    placement();
 
-   if (!click || !target || !touch) { return; }
+   if (!click || !target || !touch || !tap) { return; }
 
    function onClick (event) {
 
       offsetY = target.height() / 2;
       offsetX = target.width() / 2;
+      tapOffsetY = tap.height() / 2;
+      tapOffsetX = tap.width() / 2;
 
       click.html("C: page(" + event.pageX.toString() + ", " + event.pageY.toString() + ") client("
          + event.clientX.toString() + ", " + event.clientY.toString() + ")");
       target.css({"top": event.pageY - offsetY, "left": event.pageX - offsetX});
+      tap.css({"top": tapPlace.y - tapOffsetY, "left": tapPlace.x - tapOffsetX});
       return false;
    }
 
    $(document).click(onClick);
    $(document).dblclick(onClick);
-   document.addEventListener("touchend", function(evt) {
+   document.addEventListener("touchstart", function(evt) {
 //      evt.preventDefault();
       var touches = evt.changedTouches;
 
       if (touches.length > 0) {
          touch.html("T: page(" + touches[0].pageX.toString() + ", " + touches[0].pageY.toString() + ") client("
             + touches[0].clientX.toString() + ", " + touches[0].clientY.toString() + ")");
-//         target.css({"top": touches[0].pageY - offsetY, "left": touches[0].pageX - offsetX});
+         tapPlace.x = touches[0].pageX;
+         tapPlace.y = touches[0].pageY;
+         tap.css({"visibility": "visible" });
       }
    }, false);
 });
@@ -79,6 +88,17 @@ body {
    position: absolute;
    top: 20px;
    left: 30px;
+}
+
+#tap {
+   visibility: hidden;
+   background-color: rgba(200, 100, 100, 0.6);
+   position: absolute;
+   top: 20px;
+   left: 30px;
+   width: 40px;
+   height: 40px;
+   margin: 0 auto;
 }
 
 .container {
@@ -175,7 +195,7 @@ body {
 </div>
 
 <div id="target"><img src="images/x.png"></div>
-
+<div id="tap"></div>
 </div>
 </body>
 </html>
