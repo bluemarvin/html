@@ -1,0 +1,23 @@
+<html>
+<head>
+<meta charset="utf-8">
+<script>
+window.onload = function() {
+var info = document.getElementById("info")
+  , event = new MouseEvent("mousedown", { screenX: 1, screenY: 2, clientX: 3, clientY: 4 });
+  ;
+
+info.innerHTML = "screen(" + event.screenX + "," + event.screenY + ") client(" + event.clientX + "," + event.clientY + ")";
+}
+</script>
+<style type="text/css">
+
+body {
+   background-color: white;
+}
+</style>
+</head>
+<body>
+<div id="info"></div>
+</body>
+</html>
