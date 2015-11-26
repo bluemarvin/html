@@ -4,7 +4,7 @@
 <script>
 window.onload = function() {
 var info = document.getElementById("info")
-  , event = new MouseEvent("mousedown", { screenX: 1, screenY: 2, clientX: 3, clientY: 4 });
+  , event = new MouseEvent("mousedown", { screenX: 50, screenY: 60, clientX: 70, clientY: 80 });
   ;
 
 info.innerHTML = "screen(" + event.screenX + "," + event.screenY + ") client(" + event.clientX + "," + event.clientY + ")";
