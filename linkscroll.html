@@ -2,28 +2,47 @@
 <head>
 <meta charset="utf-8">
 <style type="text/css">
+.container {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+   box-sizing: border-box;
+}
 .box {
-   width: 800px;
-   height: 200px;
-   margin: 0 auto;
+   flex: none;
+   flex-grow: 0;
+   flex-shrink: 0;
+   flex-basis: auto;
+   box-sizing: border-box;
 }
 .space {
    height: 300px;
 }
+.scroll {
+    flex: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0%;
+    position: relative;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
 </style>
 </head>
 <body>
-<div class="box">Text before the div.</div>
-<div id="" style="overflow-y:auto; height:400px; width:400px">
-<div class="space"></div>
-<div class="space"></div>
-<div class="space"></div>
-<div class="space"></div>
-<a href="https://mozilla.org">MOZILLA</a>
-<div class="space"></div>
-<div class="space"></div>
-<div class="space"></div>
-<div class="space"></div>
+<div class="container">
+  <div class="box">Text before the div.</div>
+  <div class="scroll"> <!-- style="overflow-y:auto; height:400px; width:400px"> -->
+    <div class="space"></div>
+    <div class="space"></div>
+    <div class="space"></div>
+    <div class="space"></div>
+    <a href="https://mozilla.org">MOZILLA</a>
+    <div class="space"></div>
+    <div class="space"></div>
+    <div class="space"></div>
+    <div class="space"></div>
+  </div>
 </div>
 <p>
 Text after the div.
