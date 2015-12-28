@@ -1,0 +1,195 @@
+<html>
+<head>
+<meta charset="utf-8">
+<script>
+
+
+var TIMEOUT_DELAY=500;
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  var tapup
+    , tapdown
+    , tapinfo
+    , mouseup
+    , mousedown
+    , mouseinfo
+    , link
+    ;
+
+   tapup = document.getElementById("tapup");
+   tapdown = document.getElementById("tapdown");
+   tapdowninfo = document.getElementById("tapdowninfo");
+   tapupinfo = document.getElementById("tapupinfo");
+   mouseup = document.getElementById("mouseup");
+   mousedown = document.getElementById("mousedown");
+   mousedowninfo = document.getElementById("mousedowninfo");
+   mouseupinfo = document.getElementById("mouseupinfo");
+   document.getElementById("link").addEventListener("click", linkClicked, false);
+
+   document.addEventListener("touchstart", createTapCallback(tapdown, tapdowninfo), false);
+   document.addEventListener("touchend", createTapCallback(tapup, tapupinfo), false);
+   document.addEventListener("mousedown", createMouseCallback(mousedown, mousedowninfo), false);
+   document.addEventListener("mouseup", createMouseCallback(mouseup, mouseupinfo), false);
+});
+
+function linkClicked(evt) {
+   console.log("got event at client(" + evt.clientX + "," + evt.clientY + ") page(" + evt.pageX + "," + evt.pageY + ")");
+}
+
+function updateInfo(info, data) {
+   info.innerHTML = "P:(" + data.pageX + ", " + data.pageY + ") C:(" + data.clientX + ", " + data.clientY + ")";
+}
+
+function createTapCallback(el, info) {
+   var offset = el.offsetHeight / 2;
+   return function(evt) {
+      var touches = evt.changedTouches;
+      if (touches.length > 0) {
+        window.setTimeout(function() {
+          el.style.visibility = "visible";
+          el.style.top = (touches[0].pageY - offset).toString() + "px";
+          el.style.left = (touches[0].pageX - offset).toString() + "px";
+          updateInfo(info, touches[0]);
+        }, TIMEOUT_DELAY);
+      }
+   };
+}
+
+function createMouseCallback(el, info) {
+   var offset = el.offsetHeight / 2;
+   return function(evt) {
+      window.setTimeout(function() {
+        el.style.visibility = "visible";
+        el.style.top = (evt.pageY - offset).toString() + "px";
+        el.style.left = (evt.pageX - offset).toString() + "px";
+        updateInfo(info, evt);
+      }, TIMEOUT_DELAY);
+   };
+}
+</script>
+<style type="text/css">
+
+body {
+   background-color: white;
+}
+
+.inline {
+   display: inline-block;
+   font-family: monospace;
+}
+
+
+#info {
+   z-index: 6;
+   display: inline-block;
+   position: fixed;
+   bottom: 5px;
+}
+
+#tapup, #tapdown, #mouseup, #mousedown {
+   display: inline-block;
+   visibility: hidden;
+   position: absolute;
+   top: 20px;
+   left: 30px;
+   margin: 0 auto;
+}
+
+#tapup {
+   z-index: 5;
+   background-color: rgb(255, 0, 0);
+   width: 20px;
+   height: 20px;
+}
+
+#tapdown {
+   z-index: 4;
+   background-color: rgb(100, 100, 255);
+   width: 30px;
+   height: 30px;
+}
+
+#mouseup {
+   z-index: 3;
+   background-color: rgb(0, 255, 0);
+   width: 40px;
+   height: 40px;
+}
+
+#mousedown {
+   z-index: 2;
+   background-color: rgb(127, 127, 127);
+   width: 50px;
+   height: 50px;
+}
+.container {
+   display: flex;
+   flex-direction: column;
+   height: 100%;
+   box-sizing: border-box;
+}
+.box {
+   flex: none;
+   flex-grow: 0;
+   flex-shrink: 0;
+   flex-basis: auto;
+   box-sizing: border-box;
+}
+.space {
+   height: 300px;
+}
+.scroll {
+    flex: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0%;
+    position: relative;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+.shift {
+    text-align: center;
+}
+</style>
+</head>
+<body>
+<div class="inline" id="info">
+<div style="background-color: rgb(127,127,127); display: inline-block;">&nbsp;&nbsp;</div>
+Down Mouse: <div class="inline" id="mousedowninfo">None</div><br>
+<div style="background-color: rgb(0,255,0); display: inline-block;">&nbsp;&nbsp;</div>
+&nbsp;&nbsp;Up Mouse: <div class="inline" id="mouseupinfo">None</div><br>
+<div style="background-color: rgb(100,100,255); display: inline-block;">&nbsp;&nbsp;</div>
+&nbsp;&nbsp;Down Tap: <div class="inline" id="tapdowninfo">None</div><br>
+<div style="background-color: rgb(255,0,0); display: inline-block;">&nbsp;&nbsp;</div>
+&nbsp;&nbsp;&nbsp;&nbsp;Up Tap: <div class="inline" id="tapupinfo">None</div>
+</div>
+<div id="mouseup"></div>
+<div id="mousedown"></div>
+<div id="tapdown"></div>
+<div id="tapup"></div>
+<div class="container">
+  <div class="box">Text before the div.</div>
+  <div class="scroll">
+<!--
+    <div class="space"></div>
+    <div class="space"></div>
+    <div class="space"></div>
+    <div class="space"></div>
+-->
+    <div class="space"></div>
+    <div class="shift">
+      <a id="link" href="#">LINK</a>
+    </div>
+    <div class="space"></div>
+<!--
+    <div class="space"></div>
+    <div class="space"></div>
+    <div class="space"></div>
+    <div class="space"></div>
+    <div class="space"></div>
+-->
+  </div>
+<p>
+</div>
+</body>
+</html>
