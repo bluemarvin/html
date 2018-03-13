@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+<style>
+* {
+    touch-action: none;
+    touch-action: pinch-zoom;
+}
+
+#pane {
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    position: relative;
+}
+
+#map {
+    background-color: green;
+    width: 150%;
+    height: 150%;
+    position: absolute;
+    top: -25%;
+    left: -25%;
+    z-index: 1;
+}
+
+#box {
+    background-color: red;
+    width: 40%;
+    height: 40%;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    z-index: 100;
+}
+</style>
+<script>
+function setup() {
+//  document.body.addEventListener('pointerdown', function (event) {
+  document.addEventListener('pointerdown', function (event) {
+    let target = event.target.id || event.target.nodeName;
+console.log("target = " + target);
+    document.querySelector('pre').textContent = `target is ${target}`;
+  });
+}
+</script>
+</head>
+<body onload="setup()">
+  <div id="pane">
+      <div id="box"></div>
+      <div id="map"></div>
+  </div>
+  <pre>Tap the red box or green "map" to see the pointerevent target.</pre>
+</body>
+</html>
+
